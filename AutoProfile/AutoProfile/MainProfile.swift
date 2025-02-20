@@ -15,7 +15,7 @@ struct MainProfile: View {
                 .scaledToFit()
                 .frame(width:150,height:150)
                 .clipShape(Circle())
-                .overlay(Circle().stroke(Color.blue, lineWidth:3))
+                .overlay(Circle().stroke(Color.red, lineWidth:3))
                 .shadow(radius: 5)
             Text("Grents Artemiy")
                 .font(.largeTitle)
