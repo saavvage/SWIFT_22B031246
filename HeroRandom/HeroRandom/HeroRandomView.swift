@@ -15,7 +15,7 @@ struct HeroRandomView: View {
         VStack {
             if let hero = selectedHero {
                 VStack {
-                    AsyncImage(url: URL(string: hero.images.kg)) { image in
+                    AsyncImage(url: URL(string: hero.images.lb)) { image in
                         image.resizable().scaledToFit()
                     } placeholder: {
                         ProgressView()

@@ -32,5 +32,5 @@ struct Biography: Codable {
 }
 
 struct HeroImages: Codable {
-    let kg: String
+    let lb: String
 }

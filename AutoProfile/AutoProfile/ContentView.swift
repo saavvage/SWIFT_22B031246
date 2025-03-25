@@ -19,7 +19,7 @@ struct ContentView: View {
                         Label("Hobbies", systemImage: "star.fill")
                     }
                     Goals()
-                        .tabItem{
+                .tabItem{
                             Label("Goals", systemImage: "checkmark.circle.fill")
                         }
                 }
