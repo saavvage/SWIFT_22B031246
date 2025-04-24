@@ -9,10 +9,9 @@ import SwiftUI
 import Foundation
 
 class WeatherService {
-    let apiKey = "862f8097ee03d8a8d60eba65f05c1e20"
-
+    let apiKey = "
     func fetchCurrentWeather(for city: String) async throws -> CurrentWeather {
-        guard let url = URL(string: "https://api.openweathermap.org/data/3.0/onecall?lat=55.75&lon=37.62&exclude=minutely&appid=862f8097ee03d8a8d60eba65f05c1e20") else {
+        guard let url = URL(string: ) else {
             throw URLError(.badURL)
         }
 
