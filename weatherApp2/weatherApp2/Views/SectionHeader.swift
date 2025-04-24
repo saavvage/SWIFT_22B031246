@@ -9,17 +9,20 @@ import SwiftUI
 
 struct WeatherSectionHeader: View {
     let title: String
-    let state: WeatherViewModel.LoadingState
+    let isLoading: Bool
+    let hasError: Bool
 
     var body: some View {
         HStack {
             Text(title)
                 .font(.headline)
             Spacer()
-            
+            if isLoading {
+                ProgressView()
+            } else if hasError {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .foregroundColor(.red)
-            
+            }
         }
         .padding(.horizontal)
     }

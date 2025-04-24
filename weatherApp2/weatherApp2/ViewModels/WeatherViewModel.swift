@@ -30,6 +30,7 @@ class WeatherViewModel: ObservableObject {
     private var loadTask: Task<Void, Never>? = nil
 
     func load(for city: String) {
+        loadTask?.cancel()
         loadTask = Task {
             await withTaskGroup(of: Void.self) { group in
                 group.addTask {

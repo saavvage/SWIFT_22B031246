@@ -1,0 +1,8 @@
+//
+//  FigmaLink.txt
+//  Figma Link
+//
+//  Created by Artemiy on 24.04.2025.
+//
+
+https://www.figma.com/design/5lBJGvQFODzBgJWk69KeMi/SwiftUI-Input-Kit--Community-?node-id=3-13&t=raiEV0rLbh89A8mh-1

@@ -1,13 +1,13 @@
 //
 //  AppDelegate.swift
-//  weatherApp2
+//  HeroApp
 //
-//  Created by Artemiy on 11.04.2025.
+//  Created by Artemiy on 25.03.2025.
 //
 
 import UIKit
 
-
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 

@@ -14,78 +14,130 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(spacing: 24) {
+                    // Search Bar
                     HStack {
+                        Image(systemName: "magnifyingglass")
                         TextField("Enter city", text: $city)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                        Button("Search") {
+                            .textFieldStyle(PlainTextFieldStyle())
+                            .padding(10)
+                            .background(Color(.secondarySystemBackground))
+                            .cornerRadius(10)
+                        Button(action: {
                             viewModel.load(for: city)
+                        }) {
+                            Image(systemName: "arrow.clockwise.circle.fill")
+                                .font(.title2)
                         }
                     }
                     .padding(.horizontal)
 
-                    Group {
-                        SectionHeader(title: "Current Weather", state: viewModel.currentWeatherState)
+                    // Current Weather
+                    VStack(alignment: .center, spacing: 12) {
+                        WeatherSectionHeader(title: "Current Weather", state: viewModel.currentWeatherState)
                         if let data = viewModel.currentWeather {
-                            Text("\(data.temp, specifier: "%.1f")°C - \(data.description)")
-                        }
-                    }
-                    Group {
-                        SectionHeader(title: "Forecast", state: viewModel.forecastState)
-                        ForEach(viewModel.forecast, id: \..day) { item in
-                            Text("\(item.day): \(item.temp, specifier: "%.1f")°C")
-                        }
-                    }
-                    Group {
-                        SectionHeader(title: "Air Quality", state: viewModel.airQualityState)
-                        if let aq = viewModel.airQuality {
-                            Text("AQI: \(aq.index)")
-                        }
-                    }
-                    Group {
-                        SectionHeader(title: "Alerts", state: viewModel.alertsState)
-                        ForEach(viewModel.alerts, id: \..title) { alert in
-                            VStack(alignment: .leading) {
-                                Text(alert.title).bold()
-                                Text(alert.description)
+                            VStack {
+                                Text("\(data.temp, specifier: "%.1f")°C")
+                                    .font(.system(size: 64, weight: .bold))
+                                Text(data.description.capitalized)
+                                    .font(.title3)
+                                    .foregroundColor(.gray)
                             }
                         }
                     }
-                    Group {
-                        SectionHeader(title: "Weather Map", state: viewModel.mapState)
-                        if let url = viewModel.map?.url {
-                            Link("View Map", destination: url)
+                    .padding()
+                    .background(Color(.systemBackground))
+                    .cornerRadius(20)
+                    .shadow(radius: 5)
+                    .padding(.horizontal)
+
+                    // Forecast
+                    VStack(alignment: .leading, spacing: 8) {
+                        WeatherSectionHeader(title: "Forecast", state: viewModel.forecastState)
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 12) {
+                                ForEach(viewModel.forecast, id: \.day) { item in
+                                    VStack(spacing: 4) {
+                                        Text(item.day)
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                        Text("\(item.temp, specifier: "%.1f")°C")
+                                            .font(.headline)
+                                    }
+                                    .frame(width: 80, height: 80)
+                                    .background(Color(.secondarySystemBackground))
+                                    .cornerRadius(12)
+                                }
+                            }
                         }
                     }
+                    .padding(.horizontal)
 
-                    Button("Refresh") {
-                        viewModel.load(for: city)
+                    // Air Quality
+                    if let aq = viewModel.airQuality {
+                        VStack(alignment: .leading, spacing: 8) {
+                            WeatherSectionHeader(title: "Air Quality", state: viewModel.airQualityState)
+                            Text("AQI Index: \(aq.index)")
+                                .font(.title3)
+                        }
+                        .padding()
+                        .background(Color(.systemBackground))
+                        .cornerRadius(20)
+                        .shadow(radius: 4)
+                        .padding(.horizontal)
                     }
-                    .padding(.top)
+
+                    // Alerts
+                    if !viewModel.alerts.isEmpty {
+                        VStack(alignment: .leading, spacing: 8) {
+                            WeatherSectionHeader(title: "Alerts", state: viewModel.alertsState)
+                            ForEach(viewModel.alerts, id: \.title) { alert in
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(alert.title)
+                                        .font(.headline)
+                                    Text(alert.description)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
+                                .padding()
+                                .background(Color(.secondarySystemBackground))
+                                .cornerRadius(12)
+                            }
+                        }
+                        .padding(.horizontal)
+                    }
+
+                    // Weather Map
+                    if let url = viewModel.map?.url {
+                        VStack(alignment: .leading, spacing: 8) {
+                            WeatherSectionHeader(title: "Weather Map", state: viewModel.mapState)
+                            Link("Open Weather Map", destination: url)
+                                .font(.headline)
+                                .padding(10)
+                                .background(Color.blue.opacity(0.1))
+                                .cornerRadius(10)
+                        }
+                        .padding(.horizontal)
+                    }
+
+                    // Refresh Button
+                    Button(action: {
+                        viewModel.load(for: city)
+                    }) {
+                        Text("Refresh")
+                            .font(.headline)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 10)
                 }
-                .padding()
+                .padding(.vertical)
             }
-            .navigationTitle("Weather App")
-        }
-    }
-}
-
-struct SectionHeader: View {
-    let title: String
-    let state: WeatherViewModel.LoadingState
-
-    var body: some View {
-        HStack {
-            Text(title).font(.headline)
-            Spacer()
-            switch state {
-            case .loading:
-                ProgressView()
-            case .failed(let error):
-                Text("Error").foregroundColor(.red).help(error.localizedDescription)
-            default:
-                EmptyView()
-            }
+            .navigationTitle("Weather")
         }
     }
 }
