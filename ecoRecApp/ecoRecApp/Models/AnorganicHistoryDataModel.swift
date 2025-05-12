@@ -1,0 +1,20 @@
+//
+//  AnorganicHistoryDataModel.swift
+//  ecoRecApp
+//
+//  Created by Artemiy on 11.05.2025.
+//
+
+import Foundation
+
+struct AnorganicHistoryDataModel: Identifiable, Codable {
+    let id: String
+    let amount: Int
+    let result: Int
+    
+    init(id: String = UUID().uuidString ,amount: Int, result: Int) {
+        self.id = id
+        self.amount = amount
+        self.result = result
+    }
+}

@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Пункт сбора Байзакова 100",
+    "latitude": 43.2392,
+    "longitude": 76.8898,
+    "types": ["glass", "paper"]
+  },
+  {
+    "name": "Пункт у ТЦ Mega Alma-Ata",
+    "latitude": 43.2220,
+    "longitude": 76.8706,
+    "types": ["metal", "glass", "paper"]
+  },
+  {
+    "name": "Пункт на Ауэзова 50",
+    "latitude": 43.2431,
+    "longitude": 76.9157,
+    "types": ["organic"]
+  },
+  {
+    "name": "Пункт на Абая 75",
+    "latitude": 43.2563,
+    "longitude": 76.9281,
+    "types": ["glass", "metal", "organic"]
+  },
+  {
+    "name": "Экоцентр в центре города",
+    "latitude": 43.2389,
+    "longitude": 76.8897,
+    "types": ["glass", "paper", "metal", "organic"]
+  }
+]
+
